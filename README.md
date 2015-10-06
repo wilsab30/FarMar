@@ -5,10 +5,13 @@ In this assignment we will be creating an application to look up farmers markets
 ## Setup
 
 1. You'll be working with an assigned pair.
+1. Clone the project master repo and create a new branch with your team's initials.
+1. Push your branch so it will show in the list of branches on the project master.
 1. Choose one person to fork and clone the repo.
 1. Add the second individual as a collaborator to the forked repo.
 1. Both individuals will clone the forked repo: `$ git clone [YOUR FORKED REPO URL]`
-1. Both individuals `cd` into the dir create:d `$ cd far_mar`
+1. Both individual will switch to the team's branch by doing `git checkout [YOUR BRANCH NAME]`. *Do not work on the master branch*.
+1. Both individuals `cd` into the dir created: `$ cd far_mar`
 1. Both individuals install needed tools via Terminal:
   - `$ gem install rspec`
   - `$ gem install simplecov`
@@ -84,7 +87,12 @@ Each sale belongs to a vendor __AND__ a product. The `vendor_id` and `product_id
 
 Before you begin on these requirements, take some time to build the classes discussed above. You should be able to create instances of these classes that know about their associated data file.
 
-## Breakfast
+## Baseline
+
+- Create a class for each of the data types listed above. Each class should be inside the `FarMar` module.
+- Create your `far_mar.rb` file which will bring together all classes created in the previous step.
+
+## Primary Requirements
 **For each of the data classes build the following methods:**
 
 - `self.all` - returns a collection of Market instances, representing all of the markets described in the CSV
@@ -116,8 +124,8 @@ Before you begin on these requirements, take some time to build the classes disc
 - `self.between(beginning_time, end_time)` - returns a collection of FarMar::Sale objects where the purchase time is between the two times given as arguments
 
 
-## Lunch
-### Lunch FarMar::Market Methods
+### Optional Requirements: Part I
+### FarMar::Market Methods
 
 - `products` returns a collection of `FarMar::Product` instances that are associated to the market through the `FarMar::Vendor` class.
 - `self.search(search_term)` returns a collection of `FarMar::Market` instances where the market name or vendor name contain the `search_term`. For example `FarMar::Market.search('school')` would return 3 results, one being the market with id 75 (Fox School Farmers FarMar::Market).
@@ -126,25 +134,23 @@ Before you begin on these requirements, take some time to build the classes disc
 - `worst_vendor` - returns the vendor with the lowest revenue
 - `worst_vendor(date)` - returns the vendor with the lowest revenue on the given date
 
-### Lunch FarMar::Vendor Methods
+### FarMar::Vendor Methods
 
 - `self.most_revenue(n)` returns the top n vendor instances ranked by total revenue
 - `self.most_items(n)` returns the top n vendor instances ranked by total number of items sold
 - `self.revenue(date)` returns the total revenue for that date across all vendors
 - `revenue(date)` returns the total revenue for that specific purchase date and vendor instance
 
-### Lunch FarMar::Product Methods
+### FarMar::Product Methods
 
 - `self.most_revenue(n)` returns the top `n` products instances ranked by total revenue
 
-## Dinner
+### Optional Requirements: Part II
 **For All Classes**
 
 - Write additional rspec tests for any methods in the data classes that don't already have test coverage.
 - `self.find_by_x(match)` - where X is an attribute, returns a single instance whose X attribute case-insensitive attribute matches the match parameter. For instance, FarMar::Vendor.find_by_name("windler inc") could find a FarMar::Vendor with the name attribute "windler inc" or "Windler Inc".
 - `self.find_all_by_x(match)` - works just like `find_by_x` but returns a collection containing all possible matches. For example `FarMar::Market.find_by_state("WA")` could return all of the FarMar::Market object with `"WA"` in their state field.
-
-## Desert
 - Create a new _class_ that defines the shared/duplicated methods (i.e., `find`, `all`). Update your data classes to _inherit_ from this new parent class in order to _DRY_ up your code.
 
 # Testing
