@@ -153,19 +153,8 @@ Each sale belongs to a vendor __AND__ a product. The `vendor_id` and `product_id
 
 You must have 90% test coverage from `simplecov`. The HTML files that are generated from `simplecov` should _not_ be included in your git repository and therefore in your pull request. 
 
-To run our test suite use:
+To run your test suite use:
 
 ```bash
 $ rspec
 ```
-Our test suite will run tests to ensure that __some__ of our required methods are implemented correctly.
-
-Note: It will be best to create the basic file for the four supporting classes before running our tests like...
-
-```ruby
-class FarMar::Market
-
-end
-```
-
-and requiring them in `/lib/far_mar.rb`.
