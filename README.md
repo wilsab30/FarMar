@@ -71,25 +71,22 @@ Each sale belongs to a vendor __AND__ a product. The `vendor_id` and `product_id
 
 ## Baseline Setup
 
-1. You'll be working with an assigned pair.
-1. Clone the project master repo and create a new branch with your team's initials.
+1. You'll be working as an individual on this project.
+1. Clone the project master repo and create a new branch with your initials.
 1. Push your branch so it will show in the list of branches on the project master.
-1. Choose one person to fork and clone the repo.
-1. Add the second individual as a collaborator to the forked repo.
-1. Both individuals will clone the forked repo: `$ git clone [YOUR FORKED REPO URL]`
-1. Both individual will switch to the team's branch by doing `git checkout [YOUR BRANCH NAME]`. *Do not work on the master branch*.
-1. Both individuals `cd` into the dir created: `$ cd far_mar`
-1. Both individuals install needed tools via Terminal:
+1. Fork and clone your repository.
+1. Switch to your branch by doing `git checkout [YOUR BRANCH NAME]`. *Do not work on the master branch*.
+1. `cd` into the dir created: `$ cd far_mar`
+1. Install needed tools via Terminal:
   - `$ gem install rspec`
   - `$ gem install simplecov`
-1. We will cover rspec more in depth later, but for now, take a moment to add color output to rspec: `$ echo --color >> ~/.rspec`
 
 ## Baseline Requirements
 
 - Create a class for each of the data types listed above. Each class should be inside the `FarMar` module.
   - You should be able to create instances of these classes that know about their associated data file.
 - Create your `far_mar.rb` file which will bring together all classes created in the previous step.
-- ** Once you have completed your baseline, you must submit a pull-request and get it merged from one your instructors. **
+- **Once you have completed your baseline, you must submit a pull-request and get it merged from one your instructors.**
 
 ## Primary Requirements
 **For each of the data classes build the following methods:**
