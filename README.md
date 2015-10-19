@@ -89,6 +89,7 @@ Each sale belongs to a vendor __AND__ a product. The `vendor_id` and `product_id
 - Create a class for each of the data types listed above. Each class should be inside the `FarMar` module.
   - You should be able to create instances of these classes that know about their associated data file.
 - Create your `far_mar.rb` file which will bring together all classes created in the previous step.
+- ** Once you have completed your baseline, you must submit a pull-request and get it merged from one your instructors. **
 
 ## Primary Requirements
 **For each of the data classes build the following methods:**
@@ -151,7 +152,9 @@ Each sale belongs to a vendor __AND__ a product. The `vendor_id` and `product_id
 - `self.find_all_by_x(match)` - works just like `find_by_x` but returns a collection containing all possible matches. For example `FarMar::Market.find_by_state("WA")` could return all of the FarMar::Market object with `"WA"` in their state field.
 - Create a new _class_ that defines the shared/duplicated methods (i.e., `find`, `all`). Update your data classes to _inherit_ from this new parent class in order to _DRY_ up your code.
 
-# Testing
+# Testing Requirement
+
+You must have 90% test coverage from `simplecov`. The HTML files that are generated from `simplecov` should _not_ be included in your git repository and therefore in your pull request. 
 
 To run our test suite use:
 
