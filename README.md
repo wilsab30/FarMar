@@ -69,8 +69,6 @@ Each sale belongs to a vendor __AND__ a product. The `vendor_id` and `product_id
 
 # Requirements
 
-Before you begin on these requirements, take some time to build the classes discussed above. You should be able to create instances of these classes that know about their associated data file.
-
 ## Baseline Setup
 
 1. You'll be working with an assigned pair.
@@ -89,6 +87,7 @@ Before you begin on these requirements, take some time to build the classes disc
 ## Baseline Requirements
 
 - Create a class for each of the data types listed above. Each class should be inside the `FarMar` module.
+  - You should be able to create instances of these classes that know about their associated data file.
 - Create your `far_mar.rb` file which will bring together all classes created in the previous step.
 
 ## Primary Requirements
