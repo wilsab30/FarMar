@@ -1,34 +1,47 @@
-# FarMar Finder
-
+# FarMar: The Farmers' Market Finder
 In this assignment we will be creating an application to look up farmers markets and their related vendors, products, and sales. We will use __CSV__ files as our _database_.
 
-## Expectations
+## Learning Goals
+- Reinforce and practice all of the Ruby and programming concepts we've covered in class
+  - Practice writing specs and using TDD
+  - Practice working with raw data and using it to create _instances_ of a Ruby class
+  - Practice using _Enumerable_ methods to work with collections of data or _instances_
+  - Practice organizing and working with multiple files in a single project.
 
+## Project Setup and Expectations
 ### Project Structure
-Build classes to query the CSV data including objects and methods listed below. Before going into the requirements and methods listed in tiers below, build a system to read the CSV files and turn each row of data into an _instance_ of the appropriate Ruby _class_.
+Create a Ruby class to represent each kind of data in the `support/` directory. In the __Product Data__ section, there are detailed descriptions of each _csv_ file contents and its relation to other objects in the system. Your implementation will have _class methods_ to handle finding, sorting, and collecting the data into _instances_ representing individual rows of data. Each of those _instances_ will have _instance methods_ to provide details about the object.
 
-To manage our data classes we will use a file named `/lib/far_mar.rb`. It should look something like:
+#### Encapsulation
+To manage our data classes we will use a file named `/far_mar.rb`. It should look something like:
 
 ```ruby
+# gems your project needs
 require 'csv'
-require 'time'
-require 'lib/market'
-# ... require all needed classes
+
+# our namespace module
+module FarMar; end
+
+# all of our data classes that live in the module
+require 'lib/farmar_market'
+# ...require all needed classes
 ```
 
-Each _class_ you build will live in the `/lib/far_mar/` directory, and belong to the `FarMar` _module_:
+Each _class_ you build will live in the `/lib` directory, and belong to the `FarMar` _module_:
 
 ```ruby
-module FarMar
-  class Market
-    # Your code goes here
-  end
+# lib/farmar_market.rb
+class FarMar::Market
+  # Your code goes here
 end
 ```
 
 The module provides a _namespace_ for the application. A _namespace_ ensures the _classes_ we create will not 'collide' or 'overlap' with a _class_ that could exist elsewhere in a codebase (like in a gem).
 
 For example, `Sale` is a very generic _class_ name that could very realistically exist in many codebases. Creating a module called `FarMar` allows us to specify _which_ `Sale` we're talking about; `FarMar::Sale` is much more explicit and likely to be unique.
+
+### Specs & Testing
+You must have __90% test coverage__ from `simplecov`. The HTML files that are generated from `simplecov` should _not_ be included in your git repository. Tests should be in the form of __minitest specs__. Complete the necessary boilerplate to create a `Rakefile` and `spec_helper.rb` so that all of your tests run when you run `$ rake` from the project root.
 
 ### Project Data
 #### FarMar::Market
@@ -67,94 +80,78 @@ Each sale belongs to a vendor __AND__ a product. The `vendor_id` and `product_id
 4. Vendor_id - (Fixnum) a reference to which vendor completed the sale
 5. Product_id - (Fixnum) a reference to which product was sold
 
-# Requirements
-
-## Baseline Setup
-
+## Requirements
+### Baseline
+#### Project Setup
 1. You'll be working as an individual on this project.
-1. Clone the project master repo and create a new branch with your initials.
-1. Push your branch so it will show in the list of branches on the project master.
-1. Fork and clone your repository.
-1. Switch to your branch by doing `git checkout [YOUR BRANCH NAME]`. *Do not work on the master branch*.
-1. `cd` into the dir created: `$ cd far_mar`
-1. Install needed tools via Terminal:
-  - `$ gem install rspec`
+1. Fork the Ada-C5 repo to your Github account.
+1. Clone your fork to your projects directory, and `cd` into the cloned repo.
+1. Create a _gemset_ for your project
+  1. `$ echo 2.3.0 > .ruby-version`
+  1. `$ echo farmar > .ruby-gemset`
+  1. `$ cd .`
+1. Install necessary gems via Terminal:
+  - `$ gem install minitest-reporters`
   - `$ gem install simplecov`
 
-## Baseline Requirements
-
-- Create a class for each of the data types listed above. Each class should be inside the `FarMar` module.
-  - You should be able to create instances of these classes that know about their associated data file.
+#### Baseline Requirements
+- Create a class for each of the data types listed above. Each class should be a part of the `FarMar` module.
+- You should be able to create instances of these classes that know about their associated data file.
 - Create your `far_mar.rb` file which will bring together all classes created in the previous step.
-- **Once you have completed your baseline, you must submit a pull-request and get it merged from one your instructors.**
+- Complete the boilerplate necessary for testing. You should be able to `$ rake` from the project root to run your specs. Have at least one spec to verify this setup before submitting your baseline.
+- **Once you have completed your baseline, you must submit a pull-request and get it approved by an instructor.**
 
 ## Primary Requirements
-**For each of the data classes build the following methods:**
+### For each of the data classes build the following methods:
+1. `self.all`: returns a collection of instances, representing all of the objects described in the CSV
+1. `self.find(id)`: returns an instance of the object where the value of the `id` field in the CSV matches the passed parameter.
 
-- `self.all` - returns a collection of Market instances, representing all of the markets described in the CSV
-- `self.find(id)` - returns an instance of Market where the value of the `id` field in the CSV matches the passed parameter.
+### Additional FarMar::Market Methods
+1. `#vendors`: returns a collection of `FarMar::Vendor` instances that are associated with the market by the `market_id` field.
 
-**Additional FarMar::Market Methods**
+### Additional FarMar::Vendor Methods
+1. `#market`: returns the `FarMar::Market` instance that is associated with this vendor using the `FarMar::Vendor` `market_id` field
+1. `#products`: returns a collection of `FarMar::Product` instances that are associated by the `FarMar::Product` `vendor_id` field.
+1. `#sales`: returns a collection of `FarMar::Sale` instances that are associated by the `vendor_id` field.
+1. `#revenue`: returns the the sum of all of the vendor's sales (in cents)
+1. `self.by_market(market_id)`: returns all of the vendors with the given `market_id`
 
-- `vendors` - returns a collection of `FarMar::Vendor` instances that are associated with the market by the `market_id` field.
+### Additional FarMar::Product Methods
+1. `#vendor`: returns the `FarMar::Vendor` instance that is associated with this vendor using the `FarMar::Product` `vendor_id` field
+1. `#sales`: returns a collection of `FarMar::Sale` instances that are associated using the `FarMar::Sale` `product_id` field.
+1. `#number_of_sales`: returns the number of times this product has been sold.
+1. `self.by_vendor(vendor_id)`: returns all of the products with the given `vendor_id`
 
-**Additional FarMar::Vendor Methods**
-
-- `market` - returns the `FarMar::Market` instance that is associated with this vendor using the `FarMar::Vendor` `market_id` field
-- `products` - returns a collection of `FarMar::Product` instances that are associated by the `FarMar::Product` `vendor_id` field.
-- `sales` - returns a collection of `FarMar::Sale` instances that are associated by the `vendor_id` field.
-- `revenue` - returns the the sum of all of the vendor's sales (in cents)
-- `self.by_market(market_id)` - returns all of the vendors with the given `market_id`
-
-**Additional FarMar::Product Methods**
-
-- `vendor` - returns the `FarMar::Vendor` instance that is associated with this vendor using the `FarMar::Product` `vendor_id` field
-- `sales` - returns a collection of `FarMar::Sale` instances that are associated using the `FarMar::Sale` `product_id` field.
-- `number_of_sales` - returns the number of times this product has been sold.
-- `self.by_vendor(vendor_id)` - returns all of the products with the given `vendor_id`
-
-**Additional FarMar::Sale Methods**
-
-- `vendor` - returns the `FarMar::Vendor` instance that is associated with this sale using the `FarMar::Sale` `vendor_id` field
-- `product` - returns the `FarMar::Product` instance that is associated with this sale using the `FarMar::Sale` `product_id` field
-- `self.between(beginning_time, end_time)` - returns a collection of FarMar::Sale objects where the purchase time is between the two times given as arguments
+### Additional FarMar::Sale Methods
+1. `#vendor`: returns the `FarMar::Vendor` instance that is associated with this sale using the `FarMar::Sale` `vendor_id` field
+1. `#product`: returns the `FarMar::Product` instance that is associated with this sale using the `FarMar::Sale` `product_id` field
+1. `self.between(beginning_time, end_time)`: returns a collection of FarMar::Sale objects where the purchase time is between the two times given as arguments
 
 
 ### Optional Requirements: Part I
 ### FarMar::Market Methods
-
-- `products` returns a collection of `FarMar::Product` instances that are associated to the market through the `FarMar::Vendor` class.
-- `self.search(search_term)` returns a collection of `FarMar::Market` instances where the market name or vendor name contain the `search_term`. For example `FarMar::Market.search('school')` would return 3 results, one being the market with id 75 (Fox School Farmers FarMar::Market).
-- `prefered_vendor` - returns the vendor with the highest revenue
-- `prefered_vendor(date)` - returns the vendor with the highest revenue for the given date
-- `worst_vendor` - returns the vendor with the lowest revenue
-- `worst_vendor(date)` - returns the vendor with the lowest revenue on the given date
+1. `#products` returns a collection of `FarMar::Product` instances that are associated to the market through the `FarMar::Vendor` class.
+1. `self.search(search_term)` returns a collection of `FarMar::Market` instances where the market name or vendor name contain the `search_term`. For example `FarMar::Market.search('school')` would return 3 results, one being the market with id 75 (Fox School Farmers FarMar::Market).
+1. `#prefered_vendor`: returns the vendor with the highest revenue
+1. `#prefered_vendor(date)`: returns the vendor with the highest revenue for the given date
+1. `#worst_vendor`: returns the vendor with the lowest revenue
+1. `#worst_vendor(date)`: returns the vendor with the lowest revenue on the given date
 
 ### FarMar::Vendor Methods
-
-- `self.most_revenue(n)` returns the top n vendor instances ranked by total revenue
-- `self.most_items(n)` returns the top n vendor instances ranked by total number of items sold
-- `self.revenue(date)` returns the total revenue for that date across all vendors
-- `revenue(date)` returns the total revenue for that specific purchase date and vendor instance
+1. `self.most_revenue(n)` returns the top n vendor instances ranked by total revenue
+1. `self.most_items(n)` returns the top n vendor instances ranked by total number of items sold
+1. `self.revenue(date)` returns the total revenue for that date across all vendors
+1. `#revenue(date)` returns the total revenue for that specific purchase date and vendor instance
 
 ### FarMar::Product Methods
-
-- `self.most_revenue(n)` returns the top `n` products instances ranked by total revenue
+1. `self.most_revenue(n)` returns the top `n` product instances ranked by total revenue
 
 ### Optional Requirements: Part II
-**For All Classes**
-
+#### For Each Data Class:
 - Write additional rspec tests for any methods in the data classes that don't already have test coverage.
-- `self.find_by_x(match)` - where X is an attribute, returns a single instance whose X attribute case-insensitive attribute matches the match parameter. For instance, FarMar::Vendor.find_by_name("windler inc") could find a FarMar::Vendor with the name attribute "windler inc" or "Windler Inc".
-- `self.find_all_by_x(match)` - works just like `find_by_x` but returns a collection containing all possible matches. For example `FarMar::Market.find_by_state("WA")` could return all of the FarMar::Market object with `"WA"` in their state field.
-- Create a new _class_ that defines the shared/duplicated methods (i.e., `find`, `all`). Update your data classes to _inherit_ from this new parent class in order to _DRY_ up your code.
+- `self.find_by_x(match)`: where `x` is an _attribute_, returns a single instance whose `x` attribute (case-insensitive) equals the `match` parameter. For instance, `FarMar::Vendor.find_by_name("windler inc")` could find a `FarMar::Vendor` with name attribute "windler inc" or "Windler Inc".
+- `self.find_all_by_x(match)`: works just like `find_by_x` but returns a collection containing all possible matches. For example `FarMar::Market.find_by_state("WA")` could return all of the `FarMar::Market` objects with `"WA"` in their state field.
 
-# Testing Requirement
-
-You must have 90% test coverage from `simplecov`. The HTML files that are generated from `simplecov` should _not_ be included in your git repository and therefore in your pull request. 
-
-To run your test suite use:
-
-```bash
-$ rspec
-```
+#### Try some inheritance or some composition
+- __Inheritance:__ Create a new _class_ that defines the shared/duplicated methods (i.e., `find`, `all`). Update your data classes to _inherit_ this _class_ .
+- __Composition with a Mixin:__ Create a new _module_ that defines the duplicated methods (i.e., `find`, `all`). Update your data classes to _mixin_ this _module_. 
