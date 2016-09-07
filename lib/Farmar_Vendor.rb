@@ -15,7 +15,7 @@ class FarMar::Vendor
 
   def self.all
     vendor_list = []
-    CSV.open("../support/vendors.csv", 'r').each do |line|
+    CSV.open("./support/vendors.csv", 'r').each do |line|
 
       id = line[0].to_i
       name = line[1]
@@ -38,17 +38,16 @@ class FarMar::Vendor
     end
   end
 
-  # def vendors
-  #
-  # id = line[0].to_i
-  # name = line[1]to_s
-  # no_of_employees = [2].to_i
-  # market_id = line[3].to_i
-  # end
+  def products
+  end
+
+    def vendors
+
+  end
 end
-  print FarMar::Vendor.find(1).name
+  #print FarMar::Vendor.find(1).name
   # #market
-  # #products
+  # #
   # #sales
   # #revenue
   # self.by_market(market_id)
