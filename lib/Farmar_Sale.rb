@@ -1,4 +1,4 @@
 require_relative '../far_mar'
 
-class Sale
+class FarMar::Sale
 end
