@@ -49,6 +49,17 @@ class FarMar::Vendor
       return vendor_products
   end
 
+  def self.market(market_id)
+    vendor_market = []
+    thing = FarMar::Market.all
+    thing.each do |obj|
+      if obj.id == market_id
+        vendor_market<< obj
+      end
+    end
+      return vendor_market
+  end
+
   def self.sales(id)
     vendor_sale = []
     thing = FarMar::Sales.all
@@ -67,8 +78,7 @@ class FarMar::Vendor
   end
 
 end#end of class
+print FarMar::Vendor.market(10)
 #print FarMar::Vendor.products(48)
   #print FarMar::Vendor.by_market(9)
-  # #market
-
-  # self.by_market(market_id)
+# self.by_market(market_id)
