@@ -21,33 +21,54 @@ class FarMar::Vendor
       name = line[1]
       no_of_employees = line[2].to_i
       market_id = line[3].to_i
-
       ven = FarMar::Vendor.new(id, name, no_of_employees, market_id)
-
       vendor_list << ven
     end
     return vendor_list
   end
 
-  def self.find(id)
+  def self.by_market(market_id)
+    mark_ven = []
     ven = self.all
     ven.each do |obj|
-      if obj.id == id
-        return obj
+      if obj.market_id == market_id
+        mark_ven << obj
       end
     end
+    return mark_ven
   end
 
-  def products
+  def self.products(id)
+    vendor_products = []
+    thing = FarMar::Product.all
+    thing.each do |obj|
+      if obj.vendor_id == id
+        vendor_products << obj.name
+      end
+    end
+      return vendor_products
   end
 
-    def vendors
-
+  def self.sales(id)
+    vendor_sale = []
+    thing = FarMar::Sales.all
+    thing.each do |obj|
+      #puts obj.vendor_id.class
+      if obj.vendor_id == id
+        vendor_sale << obj.amount
+      end
+    end
+      return vendor_sale
   end
-end
-  #print FarMar::Vendor.find(1).name
+
+  def self.revenue
+    total = self.sales(50).inject { |result, element| result + element }
+    return total
+  end
+
+end#end of class
+#print FarMar::Vendor.products(48)
+  #print FarMar::Vendor.by_market(9)
   # #market
-  # #
-  # #sales
-  # #revenue
+
   # self.by_market(market_id)

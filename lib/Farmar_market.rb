@@ -3,13 +3,14 @@ require_relative '../far_mar'
 
 
 class FarMar::Market
-  attr_reader  :id, :name, :address, :city, :state, :zip
+  attr_reader  :id, :name, :address, :city, :county, :state, :zip
 
   def initialize(id, name, address, city, county, state, zip)
     @id = id
     @name = name
     @address = address
     @city = city
+    @county = county
     @state = state
     @zip = zip
   end
@@ -24,7 +25,7 @@ class FarMar::Market
       city = line[3]
       county = line[4]
       state = line[5]
-      zip = line[6]
+      zip = line[6].to_i
       mkt = FarMar::Market.new(id, name, address, city, county, state, zip)
 
       market_list << mkt
@@ -42,8 +43,7 @@ class FarMar::Market
   end
 
   def self.vendors(id)
-
-      market_vendor = []
+    market_vendor = []
     vendor = FarMar::Vendor.all
     vendor.each do |obj|
       if obj.market_id == id
@@ -52,8 +52,11 @@ class FarMar::Market
         return market_vendor
   end
 
+  
+
   end
 
 end#end of class
-# FarMar::Market.vendors(10)
+#puts FarMar::Market.all.length
+#FarMar::Market.vendors(10)
 # puts market_vendor
