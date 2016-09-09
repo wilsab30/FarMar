@@ -18,7 +18,7 @@ class FarMar::Vendor
     CSV.open("./support/vendors.csv", 'r').each do |line|
 
       id = line[0].to_i
-      name = line[1]
+      name = line[1].to_s
       no_of_employees = line[2].to_i
       market_id = line[3].to_i
       ven = FarMar::Vendor.new(id, name, no_of_employees, market_id)
@@ -50,35 +50,51 @@ class FarMar::Vendor
   end
 
   def self.market(market_id)
-    vendor_market = []
+    vendor_market = nil
     thing = FarMar::Market.all
     thing.each do |obj|
       if obj.id == market_id
-        vendor_market<< obj
+        vendor_market = obj
+        break
       end
     end
       return vendor_market
   end
 
   def self.sales(id)
-    vendor_sale = []
+    @vendor_sale  ||= []
+
+    return @vendor_sale unless @vendor_sale.empty?
     thing = FarMar::Sales.all
     thing.each do |obj|
       #puts obj.vendor_id.class
       if obj.vendor_id == id
-        vendor_sale << obj.amount
+        @vendor_sale << obj
+        end
       end
-    end
-      return vendor_sale
+      return @vendor_sale
   end
 
+  # def add_sale(sale)
+  #   @vendor_sale << sale
+  #
+  # end
+
   def self.revenue
-    total = self.sales(50).inject { |result, element| result + element }
+    #puts @sale_amounts
+    #calls sales, return an array of sale objects
+    @amounts = []
+    sale = FarMar::Sales.all
+     sale.each do |obj|
+       @amounts << obj.amount
+    end
+     total =  @amounts.inject { |result, element| result + element }
+     total * 100
     return total
   end
 
 end#end of class
-print FarMar::Vendor.market(10)
+#print FarMar::Vendor.revenue
+#print FarMar::Vendor.market(10)
 #print FarMar::Vendor.products(48)
   #print FarMar::Vendor.by_market(9)
-# self.by_market(market_id)

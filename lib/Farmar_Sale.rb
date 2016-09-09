@@ -25,5 +25,31 @@ class FarMar::Sales
       end
       return sales_list
     end
+
+    def self.vendor(vendor_id)
+      sale_ven = nil
+    ven = FarMar::Vendor.all
+    ven.each do |obj|
+      if obj.id == vendor_id
+        sale_ven = obj
+      end
+    end
+    return sale_ven
+    end
+
+    def self.product(product_id)
+      sale_prod = nil
+    ven = FarMar::Product.all
+    ven.each do |obj|
+      if obj.id == product_id
+        sale_prod = obj
+      end
+    end
+    return sale_prod
+    end
+
+    # def self.between(beginning_time, end_time)
+    # end
 end
 #print FarMar::Sales.all
+#print FarMar::Sales.vendor(48)
