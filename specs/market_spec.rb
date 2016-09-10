@@ -12,7 +12,7 @@ it 'FarMar::Market.all must return all objects' do
 expect(FarMar::Market.all.length).must_equal(500)
 end
 
-it 'FarMar::Market must return correct instance' do
+it 'FarMar::Market must returns an instance of the object that matchesthe passed parameter.' do
 expect(FarMar::Market.find(488).wont_be_nil(true))
 end
 it 'FarMar::Market must return object data' do

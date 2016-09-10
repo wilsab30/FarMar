@@ -25,7 +25,9 @@ it 'returns the the sum of all of the vendors sales (in cents)' do
 expect(FarMar::Vendor.revenue).must_equal(62899270)
 end
 
-
+it 'FarMar::Vendor.by_market must return all of the vendors with the given market_id' do
+  expect(FarMar::Vendor.by_market(8)[1].name).must_equal("Veum, Dickinson and Conroy")
+end
 
 
 end #end of test

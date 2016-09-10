@@ -27,6 +27,15 @@ class FarMar::Vendor
     return vendor_list
   end
 
+  def self.find(id)
+    ven = self.all
+    ven.each do |obj|
+      if obj.id == id
+        return obj
+      end
+    end
+  end
+
   def self.by_market(market_id)
     mark_ven = []
     ven = self.all

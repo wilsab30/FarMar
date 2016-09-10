@@ -20,10 +20,18 @@ class FarMar::Sales
         vendor_id = line[3].to_i
         product_id = line[4].to_i
         sale = FarMar::Sales.new(id, amount, purchase_time, vendor_id, product_id)
-
         sales_list << sale
       end
       return sales_list
+    end
+
+    def self.find(id)
+      sale = self.all
+      sale.each do |obj|
+        if obj.id == id
+          return obj
+        end
+      end
     end
 
     def self.vendor(vendor_id)

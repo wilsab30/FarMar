@@ -20,8 +20,36 @@ attr_reader  :id, :name, :vendor_id
     return product_list
   end
 
-  #  def number_of_sales
-  #  end
+  def self.find(id)
+    prod = self.all
+    prod.each do |obj|
+      if obj.id == id
+        return obj
+      end
+    end
+  end
+
+   def number_of_sales
+     num_sales = 0
+     records = FarMar::Sales.all
+     records.each do |sale|
+       if sale.product_id == id
+         num_sales += 1
+       end
+    end
+    return num_sales
+   end
+
+def sales
+  prod_sales = []
+  sales = FarMar::Sales.all
+  sales.each do |sale|
+    if sale.product_id == id
+    prod_sales << sale
+    end
+  end
+  return prod_sales
+end
 
    def self.vendor(vendor_id)
      prod_ven = nil
@@ -36,15 +64,16 @@ attr_reader  :id, :name, :vendor_id
 
   def self.by_vendor(vendor_id)
     product_by_ven = []
-  vendor = FarMar::Vendor.all
-  vendor.each do |obj|
+  product = self.all
+  #puts product
+  product.each do |obj|
     if obj.id == vendor_id
-      product_by_ven << obj
+      product_by_ven << obj.name
       end
-      return product_by_ven
-    end
+  end
+  return product_by_ven
   end
 
 end#end of class
-#print FarMar::Product.by_vendor(50)
+print FarMar::Product.by_vendor(5)
 #FarMar::Product.products
