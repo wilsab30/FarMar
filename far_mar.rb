@@ -13,6 +13,7 @@ require_relative 'lib/farmar_Vendor'
 require_relative 'lib/farmar_Product'
 require_relative 'lib/farmar_Sale'
 
+#print FarMar::Sales.between("11 Nov 2013 8:16:00 +0000", "11 Nov 2013 8:35:00 +0000")
 #bob = FarMar::Product.new(1, "Dry Beets", 1)
 #print bob.sales[0].amount
 #print FarMar::Sales.vendor(48)

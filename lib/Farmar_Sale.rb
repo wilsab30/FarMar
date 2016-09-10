@@ -16,7 +16,7 @@ class FarMar::Sales
 
         id = line[0].to_i
         amount = line[1].to_i
-        purchase_time = line[2].to_i
+        purchase_time = line[2]
         vendor_id = line[3].to_i
         product_id = line[4].to_i
         sale = FarMar::Sales.new(id, amount, purchase_time, vendor_id, product_id)
@@ -24,6 +24,8 @@ class FarMar::Sales
       end
       return sales_list
     end
+    #.purchase_time
+    #.strftime("%Y-%m-%d %H:%M:%S")
 
     def self.find(id)
       sale = self.all
@@ -54,10 +56,23 @@ class FarMar::Sales
       end
     end
     return sale_prod
+
     end
 
-    # def self.between(beginning_time, end_time)
-    # end
-end
+    def self.between(beginning_time, end_time)
+      sales = []
+      record = self.all
+      record.each do |sale|
+        if sale.purchase_time >= beginning_time && sale.purchase_time <= end_time
+          sales << sale
+        end
+        end
+        return sales
+    end
+
+end#end of class
+
+# puts sale_prod
+#print FarMar::Sales.between(2013-11-11 8:16:00, 2013-11-11 8:35:00)
 #print FarMar::Sales.all
 #print FarMar::Sales.vendor(48)

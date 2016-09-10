@@ -75,5 +75,5 @@ end
   end
 
 end#end of class
-print FarMar::Product.by_vendor(5)
+#print FarMar::Product.by_vendor(5)
 #FarMar::Product.products
