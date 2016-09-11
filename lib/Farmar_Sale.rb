@@ -10,6 +10,8 @@ class FarMar::Sales
       @product_id = product_id
     end
 
+
+#returns a collection of instances, representing all of the objects described in the sales.csv file.
     def self.all
       sales_list = []
       CSV.open("./support/sales.csv", 'r').each do |line|
@@ -24,9 +26,9 @@ class FarMar::Sales
       end
       return sales_list
     end
-    #.purchase_time
-    #.strftime("%Y-%m-%d %H:%M:%S")
 
+
+# returns an instance of the object where the value of the id field in the CSV matches the passed parameter.
     def self.find(id)
       sale = self.all
       sale.each do |obj|
@@ -36,6 +38,8 @@ class FarMar::Sales
       end
     end
 
+
+# returns the FarMar::Vendor instance that is associated with this sale using the FarMar::Sale vendor_id field
     def self.vendor(vendor_id)
       sale_ven = nil
     ven = FarMar::Vendor.all
@@ -47,6 +51,8 @@ class FarMar::Sales
     return sale_ven
     end
 
+
+# returns the FarMar::Product instance that is associated with this sale using the FarMar::Sale product_id field
     def self.product(product_id)
       sale_prod = nil
     ven = FarMar::Product.all
@@ -59,6 +65,8 @@ class FarMar::Sales
 
     end
 
+
+# returns a collection of FarMar::Sale objects where the purchase time is between the two times given as arguments
     def self.between(beginning_time, end_time)
       sales = []
       record = self.all

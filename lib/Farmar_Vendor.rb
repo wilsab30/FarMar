@@ -12,7 +12,7 @@ class FarMar::Vendor
     @no_of_employees = no_of_employees
     @market_id = market_id
   end
-
+#returns a collection of instances, representing all of the objects described in the vendor.csv file.
   def self.all
     vendor_list = []
     CSV.open("./support/vendors.csv", 'r').each do |line|
@@ -27,6 +27,8 @@ class FarMar::Vendor
     return vendor_list
   end
 
+
+# returns an instance of the object where the value of the id field in the CSV matches the passed parameter.
   def self.find(id)
     ven = self.all
     ven.each do |obj|
@@ -36,6 +38,8 @@ class FarMar::Vendor
     end
   end
 
+
+# returns all of the vendors with the given market_id
   def self.by_market(market_id)
     mark_ven = []
     ven = self.all
@@ -47,6 +51,8 @@ class FarMar::Vendor
     return mark_ven
   end
 
+
+# returns a collection of FarMar::Product instances that are associated by the FarMar::Product vendor_id field.
   def self.products(id)
     vendor_products = []
     thing = FarMar::Product.all
@@ -58,6 +64,8 @@ class FarMar::Vendor
       return vendor_products
   end
 
+
+# returns the FarMar::Market instance that is associated with this vendor using the FarMar::Vendor market_id field
   def self.market(market_id)
     vendor_market = nil
     thing = FarMar::Market.all
@@ -70,6 +78,8 @@ class FarMar::Vendor
       return vendor_market
   end
 
+
+# returns a collection of FarMar::Sale instances that are associated by the vendor_id field.
   def self.sales(id)
     @vendor_sale  ||= []
 
@@ -89,6 +99,8 @@ class FarMar::Vendor
   #
   # end
 
+  
+# returns the the sum of all of the vendor's sales (in cents)
   def self.revenue
     #puts @sale_amounts
     #calls sales, return an array of sale objects
