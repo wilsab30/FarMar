@@ -1,11 +1,12 @@
 require_relative '../far_mar'
+require 'Date'
 
 class FarMar::Sales
   attr_reader  :id, :amount, :purchase_time, :vendor_id, :product_id
     def initialize(id, amount, purchase_time, vendor_id, product_id)
       @id = id
       @amount = amount
-      @purchase_time = purchase_time
+      @purchase_time = DateTime.parse(purchase_time)
       @vendor_id = vendor_id
       @product_id = product_id
     end
@@ -68,6 +69,8 @@ class FarMar::Sales
 
 # returns a collection of FarMar::Sale objects where the purchase time is between the two times given as arguments
     def self.between(beginning_time, end_time)
+      beginning_time = DateTime.parse(beginning_time)
+      end_time = DateTime.parse(end_time)
       sales = []
       record = self.all
       record.each do |sale|
@@ -81,6 +84,9 @@ class FarMar::Sales
 end#end of class
 
 # puts sale_prod
-#print FarMar::Sales.between(2013-11-11 8:16:00, 2013-11-11 8:35:00)
+# a1 = FarMar::Sales.between("2013-11-11 07:56:35 -0800", "2013-11-11 20:56:35 -0800")
+# a1.each do |sale|
+#   puts sale.purchase_time
+# end
 #print FarMar::Sales.all
 #print FarMar::Sales.vendor(48)
